@@ -4,12 +4,25 @@
   "author": "Sachira Sujantha",
   "description": "Notification Service",
   "license": "MIT",
+  "scripts": {
+    "deploy": "serverless deploy --verbose",
+    "deploy:prod": "serverless deploy --stage prod",
+    "deploy:function": "serverless deploy function",
+    "invoke": "serverless invoke -f sendMail",
+    "build": "webpack",
+    "remove": "serverless remove --verbose",
+    "remove:prod": "serverless remove --stage prod --verbose"
+  },
   "devDependencies": {
-    "serverless-webpack": "^5.13.0"
+    "serverless-pseudo-parameters": "^2.6.1",
+    "serverless-webpack": "^5.13.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
     "aws-sdk": "^2.1030.0",
-    "notification-service": "file:",
-    "serverless-pseudo-parameters": "^2.6.0"
+    "notification-service": "file:"
   }
 }

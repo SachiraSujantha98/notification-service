@@ -6,14 +6,21 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs18.x
   memorySize: 1024
   timeout: 10
   stage: ${opt:stage, 'dev'}
   region: us-east-1
   iamRoleStatements:
     - ${file(iam/SendMailIAM.yml):SendMailIAM}
-  
+
+custom:
+  webpack:
+    webpackConfig: webpack.config.js
+    includeModules: true
+    packager: 'npm'
+    excludeFiles: src/**/*.test.ts
+
 functions:
   sendMail:
     handler: src/handlers/sendMail.handler
