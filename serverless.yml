@@ -1,6 +1,7 @@
 service: notification-service
 
 plugins:
+  - serverless-webpack
   - serverless-pseudo-parameters
 
 provider:
@@ -10,11 +11,9 @@ provider:
   timeout: 10
   stage: ${opt:stage, 'dev'}
   region: us-east-1
+  iamRoleStatements:
+    - ${file(iam/SendMailIAM.yml):SendMailIAM}
   
 functions:
-  hello:
-    handler: src/handlers/hello.handler
-    events:
-      - http:
-          method: GET
-          path: /hello
+  sendMail:
+    handler: src/handlers/sendMail.handler
