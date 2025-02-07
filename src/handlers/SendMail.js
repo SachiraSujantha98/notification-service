@@ -2,17 +2,22 @@ import AWS from 'aws-sdk';
 
 const ses = new AWS.SES({ region: 'us-east-1' });
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
+
+  const record = event.Records[0];
+  const email = JSON.parse(record.body);
+  const { subject, body, recipient } = email;
+
   const params = {
     Source: 'sachirasujanthamp@gmail.com',
     Destination: {
-      ToAddresses: ['sachirasujanthamp@gmail.com']
+      ToAddresses: [recipient]
     },
     Message: {
       Body: {
-        Text: { Data: 'Hello from AWS Lambda' },
+        Text: { Data: body },
       },
-      Subject: { Data: 'Test Email' },
+      Subject: { Data: subject },
     },
   };
 
